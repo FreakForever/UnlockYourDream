@@ -22,7 +22,6 @@ ATS Backend is a backend service for an Application Tracking System (ATS) that i
 ### Prerequisites
 
 - **Node.js** (>= 14.x)
-- **Python** (>= 3.6) with `pip` for managing Python packages
 - **MongoDB**: Set up a MongoDB database (local or cloud) for user data
 - **Render Account**: Sign up at [Render](https://render.com)
 
