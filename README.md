@@ -1,4 +1,4 @@
-# ATS Backend
+# ATS
 
 [![Node.js](https://img.shields.io/badge/Node.js-v14%2B-green)](https://nodejs.org/)
 [![Python](https://img.shields.io/badge/Python-v3.6%2B-blue)](https://www.python.org/)
