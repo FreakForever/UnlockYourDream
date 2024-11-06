@@ -1,9 +1,8 @@
 ATS Backend
+
 This project is a backend service for an Application Tracking System (ATS) that includes user authentication and resume-to-job description matching using text similarity calculations. It features a Node.js server with Express and MongoDB for user management and a Python Flask service for resume processing and matching.
 
 Project Structure
-bash
-Copy code
 ats-backend/
 ├── server.js                      # Main Node.js server file
 ├── models/
@@ -13,6 +12,7 @@ ats-backend/
 ├── .env                            # Environment variables (add this locally)
 ├── package.json                   # Node.js config file with dependencies
 └── requirements.txt               # Python dependencies for Render
+
 Features
 User Authentication: Signup and login endpoints with bcrypt for hashing and JWT for token-based authentication.
 Resume Parsing: Extracts sections like skills and experience from resumes.
@@ -26,14 +26,10 @@ Render Account: Sign up at Render
 Setup
 Clone the repository:
 
-bash
-Copy code
 git clone https://github.com/yourusername/ats-backend.git
 cd ats-backend
 Install dependencies for Node.js:
 
-bash
-Copy code
 npm install
 Set up the Python environment:
 
@@ -41,27 +37,20 @@ Navigate to the python folder.
 
 Install dependencies with pip:
 
-bash
-Copy code
 pip install -r requirements.txt
 Configure environment variables:
 
 Create a .env file in the project root with the following variables:
 
-plaintext
-Copy code
+
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 Running Locally
 Start the Python Flask service (resume parser API):
 
-bash
-Copy code
 python python/resume_parser_api.py
 Start the Node.js server:
 
-bash
-Copy code
 node server.js
 Test the API: The Node.js API will run on http://localhost:3000 by default, and the Python API on http://localhost:5000.
 
@@ -95,8 +84,6 @@ Set Environment Variables:
 
 In each service, set the following environment variables:
 
-plaintext
-Copy code
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 Configure Networking:
@@ -114,4 +101,5 @@ axios: HTTP client for calling the Python service
 Python & Flask: Backend resume parser
 scikit-learn, spacy: NLP and text similarity libraries for Python
 Contributing
+
 If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
