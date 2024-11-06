@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
-const User = require('./models/User'); // Import the User model
+const User = require('./models/User');
+const natural = require('natural');
 
 dotenv.config();
 const app = express();
@@ -22,10 +22,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Signup Route
 app.post('/signup', async (req, res) => {
-    const { username, email, password } = req.body; // Include username and email
+    const { username, email, password } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, email, password: hashedPassword }); // Use both username and email
+        const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
@@ -36,10 +36,9 @@ app.post('/signup', async (req, res) => {
 
 // Login Route
 app.post('/login', async (req, res) => {
-    const { username, email, password } = req.body; // Include username and email
+    const { username, email, password } = req.body;
     try {
-        // You can choose to allow login by either username or email
-        const user = await User.findOne({ $or: [{ username }, { email }] }); // Find user by username or email
+        const user = await User.findOne({ $or: [{ username }, { email }] });
         if (!user) return res.status(401).json({ error: 'Invalid credentials' });
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -53,21 +52,28 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// Text preprocessing and similarity calculation functions
+const tokenizer = new natural.WordTokenizer();
+function textPreprocess(text) {
+    return tokenizer.tokenize(text.toLowerCase()).filter(word => !natural.stopwords.includes(word)).join(' ');
+}
+
+function calculateSimilarity(resumeText, jobText) {
+    const tfidf = new natural.TfIdf();
+    tfidf.addDocument(textPreprocess(resumeText));
+    tfidf.addDocument(textPreprocess(jobText));
+
+    // Calculate cosine similarity
+    const resumeVector = tfidf.documents[0];
+    const jobVector = tfidf.documents[1];
+    return natural.JaroWinklerDistance(resumeVector, jobVector);
+}
+
 // Define a route for similarity calculation
 app.post('/calculate-similarity', async (req, res) => {
     const { resumeText, jobText } = req.body;
-
-    try {
-        // Call the Python Flask API
-        const response = await axios.post('http://127.0.0.1:5000/parse-and-match', {
-            resume_text: resumeText,
-            job_text: jobText,
-        });
-        res.json({ similarity: response.data.similarity });
-    } catch (error) {
-        console.error('Error from Python service:', error.message);
-        res.status(500).json({ error: 'Failed to calculate similarity' });
-    }
+    const similarity = calculateSimilarity(resumeText, jobText);
+    res.json({ similarity });
 });
 
 // Start the server
