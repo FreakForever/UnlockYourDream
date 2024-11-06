@@ -1,2 +1,0 @@
-web: node server.js
-python: python3 python/resume_parser_api.py
