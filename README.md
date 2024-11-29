@@ -1,7 +1,6 @@
 # ATS
 
 [![Node.js](https://img.shields.io/badge/Node.js-v14%2B-green)](https://nodejs.org/)
-[![Python](https://img.shields.io/badge/Python-v3.6%2B-blue)](https://www.python.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen)](https://www.mongodb.com/atlas/database)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
