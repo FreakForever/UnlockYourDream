@@ -2,7 +2,6 @@
 
 [![Node.js](https://img.shields.io/badge/Node.js-v14%2B-green)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen)](https://www.mongodb.com/atlas/database)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ATS Backend is a backend service for an Application Tracking System (ATS) that includes **user authentication** and **resume-to-job description matching** using text similarity calculations. It leverages a **Node.js server** with Express and MongoDB for user management, and a **Python Flask service** for resume processing and text similarity calculations.
 
